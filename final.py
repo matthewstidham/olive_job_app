@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import datetime
 import random
@@ -27,13 +27,14 @@ def generate_random_csv():
 
 
 def read_data():
-    files = os.listdir('input')
+    files = [x for x in os.listdir('input') if 'csv' in x]
     dfs = [pd.read_csv('input/' + file) for file in files]
     for file, df in zip(files, dfs):
         df['source_filename'] = file
     df = pd.concat(dfs).reset_index(drop=True)
     final = df.sort_values('timestamp').drop_duplicates('id', keep='last')
     final.to_csv('output/id_descriptions.csv')
+    print('created output file')
     return final
 
 
