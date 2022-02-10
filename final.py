@@ -33,7 +33,7 @@ def read_data():
         df['source_filename'] = file
     df = pd.concat(dfs).reset_index(drop=True)
     final = df.sort_values('timestamp').drop_duplicates('id', keep='last')
-    final.to_csv('output/id_descriptions.csv')
+    final.to_csv('output/id_descriptions.csv', index=False)
     print('created output file')
     return final
 
